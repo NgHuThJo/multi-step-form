@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "#frontend/*": ["./src/*"],
+      "#backend/*": ["../backend/src/*"]
+    },
+    "outDir": "dist"
+  },
+  "include": ["./src/**/*"],
+  "references": [],
+}
