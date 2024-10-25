@@ -1,4 +1,3 @@
-import { TRPCClientError } from "@trpc/client";
 import { Link, useRouteError } from "react-router-dom";
 
 export function ErrorRoute() {
@@ -9,13 +8,13 @@ export function ErrorRoute() {
     <div
       style={{
         display: "grid",
-        gap: "1rem",
         placeSelf: "center",
+        gap: "1rem",
         fontWeight: "var(--fw-heading)",
         textAlign: "center",
       }}
     >
-      {error instanceof TRPCClientError || error instanceof Error ? (
+      {error instanceof Error ? (
         <>
           <p>{error.name}</p>
           <pre>{error.message}</pre>

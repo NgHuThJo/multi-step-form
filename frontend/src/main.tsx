@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Context } from "./providers/context";
 import { Router } from "./app/router";
 import "#frontend/assets/styles";
 
@@ -12,8 +11,6 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <Context>
-      <Router />
-    </Context>
+    <Router />
   </React.StrictMode>,
 );

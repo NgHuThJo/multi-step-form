@@ -7,11 +7,10 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "#frontend/*": ["./src/*"],
-      "#backend/*": ["../backend/src/*"]
+      "#frontend/*": ["./src/*"]
     },
     "outDir": "dist"
   },
   "include": ["./src/**/*"],
-  "references": [],
+  "references": []
 }
