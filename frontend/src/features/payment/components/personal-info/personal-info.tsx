@@ -1,12 +1,33 @@
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useFormContextApi } from "#frontend/features/payment/providers/form-context";
+import { Card } from "#frontend/features/shared/card/card";
+import { FormDataStep } from "#frontend/features/payment/providers/form-context";
 import styles from "./personal-info.module.css";
 
 export function PersonalInfo() {
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const { saveFormData } = useFormContextApi();
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    if (!formRef.current || !formRef.current.checkValidity()) {
+      return;
+    }
+
+    let formData = Object.fromEntries(new FormData(formRef.current));
+
+    saveFormData(1, formData as FormDataStep);
+
+    return navigate("/plan");
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.top}>
+      <Card>
         <h1>Personal info</h1>
         <p>Please provide your name, email, address, and phone number.</p>
-        <form action="" method="post">
+        <form action="" method="post" ref={formRef}>
           <label htmlFor="name">
             <div>
               <span>Name</span>
@@ -17,6 +38,7 @@ export function PersonalInfo() {
               name="name"
               id="name"
               placeholder="e.g. Stephen King"
+              required
             />
           </label>
           <label htmlFor="email">
@@ -29,24 +51,26 @@ export function PersonalInfo() {
               name="email"
               id="email"
               placeholder="e.g. stephenking@lorem.com"
+              required
             />
           </label>
-          <label htmlFor="phone number">
+          <label htmlFor="phone">
             <div>
               <span>Phone Number</span>
               <span>This field is required</span>
             </div>
             <input
               type="tel"
-              name="phone number"
-              id="phone number"
+              name="phone"
+              id="phone"
               placeholder="e.g. +1 234 567 890"
+              required
             />
           </label>
         </form>
-      </div>
+      </Card>
       <div className={styles.bottom}>
-        <button>Next Step</button>
+        <button onClick={handleNext}>Next Step</button>
       </div>
     </div>
   );

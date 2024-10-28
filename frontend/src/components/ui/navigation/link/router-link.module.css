@@ -1,0 +1,18 @@
+.next-step {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  color: var(--c-confirmation-button);
+  background-color: var(--bgc-confirmation-button);
+  transition: opacity var(--transition-duration);
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.finish-step {
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  color: var(--c-confirmation-button);
+  background-color: var(--bgc-finish-button);
+}

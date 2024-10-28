@@ -1,4 +1,4 @@
-import { NavigationLink } from "../link/link";
+import { NavigationLink } from "../link/navigation-link";
 import styles from "./list.module.css";
 
 type NavigationListProps = {

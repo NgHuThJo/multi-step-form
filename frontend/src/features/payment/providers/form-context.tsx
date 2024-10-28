@@ -1,28 +1,41 @@
 import { createContext, PropsWithChildren, useMemo, useState } from "react";
 import { useContextWrapper } from "#frontend/utils/context";
 
-type FormData = {
-  [key: number]: {};
+export type FormDataStep = PersonalInfo;
+
+type PersonalInfo = {
+  email: string;
+  name: string;
+  phone: number;
 };
+
+type FormData =
+  | {
+      1: PersonalInfo;
+      2: {};
+    }
+  | {};
 type FormDataApi = {
-  saveFormData: (step: number, data: number) => void;
+  saveFormData: (step: number, data: FormDataStep) => void;
 };
 
 const FormContext = createContext<FormData | null>(null);
 const FormContextApi = createContext<FormDataApi | null>(null);
 
-export const useAuthContext = () =>
+export const useFormContext = () =>
   useContextWrapper(FormContext, "AuthContext is null");
-export const useAuthContextApi = () =>
+export const useFormContextApi = () =>
   useContextWrapper(FormContextApi, "AuthContextApi is null");
 
 export function FormContextProvider({ children }: PropsWithChildren) {
-  const [formData, setFormData] = useState<FormData>();
+  const [formData, setFormData] = useState<FormData>({});
+
+  console.log(formData);
 
   const contextValue = { formData };
 
   const api = useMemo(() => {
-    const saveFormData = (step: number, data: number) => {
+    const saveFormData = (step: number, data: FormDataStep) => {
       setFormData((prev) => ({ ...prev, [step]: data }));
     };
 

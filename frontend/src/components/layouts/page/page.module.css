@@ -18,11 +18,12 @@
   display: flex;
   gap: 1rem;
   justify-self: center;
-  align-self: center;
+  align-self: start;
+  margin-top: 2rem;
   color: var(--c-step-button);
 
   & > button {
-    width: 3rem;
+    width: 2rem;
     aspect-ratio: 1;
     border: 1px solid var(--c-step-button-border);
     border-radius: 50%;

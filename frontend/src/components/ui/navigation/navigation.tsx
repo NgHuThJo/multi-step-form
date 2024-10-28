@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "#frontend/providers/auth-context";
-import { NavigationLink } from "./link/link";
+import { NavigationLink } from "./link/navigation-link";
 import { NavigationList } from "./list/list";
 import { NotificationList } from "../notifiication/list";
 import styles from "./navigation.module.css";

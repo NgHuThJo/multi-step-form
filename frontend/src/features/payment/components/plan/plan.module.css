@@ -1,0 +1,86 @@
+.container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  > :first-child {
+    align-self: start;
+  }
+
+  h1,
+  h2 {
+    color: var(--c-heading);
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  form {
+    display: grid;
+    gap: var(--gap-form);
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--c-border-input);
+  border-radius: var(--border-radius);
+  text-align: left;
+
+  &:has(input[type="radio"]:checked),
+  &:focus-within {
+    outline: 2px solid var(--c-input-outline-focus);
+    outline-offset: -2px;
+    color: var(--c-heading);
+  }
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.payment-plan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-weight: var(--fw-button);
+  color: var(--c-heading);
+  background-color: var(--bgc-root);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  background-color: var(--bgc-confirmation-button);
+
+  button {
+    width: 1rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--bgc-switch-button);
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--p-inline-container) calc(2 * var(--p-inline-container));
+  background-color: var(--bgc-content);
+}

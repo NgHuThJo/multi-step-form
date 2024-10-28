@@ -1,0 +1,47 @@
+.default {
+  display: grid;
+  place-content: center;
+  width: 1.5rem;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid currentColor;
+  border-radius: 0.25rem;
+
+  &::before {
+    content: "";
+    width: 0.75rem;
+    height: 0.75rem;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    background-color: var(--bgc-checkmark);
+    transition: transform 100ms ease-in-out;
+  }
+
+  input:checked + &::before {
+    transform: scale(1);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--c-input-outline-focus);
+    outline-offset: -2px;
+    color: var(--c-heading);
+  }
+
+  &:disabled {
+    color: var(--c-checkbox-disabled);
+    cursor: not-allowed;
+  }
+}
+
+.sr-only {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,15 @@
+.container {
+  display: grid;
+  align-content: start;
+  gap: 2rem;
+  margin: 1rem;
+  padding: calc(2 * var(--p-inline-container));
+  border-radius: var(--border-radius);
+  position: relative;
+  top: -5rem;
+  background-color: var(--bgc-content);
+
+  h1 {
+    color: var(--c-heading);
+  }
+}

@@ -1,0 +1,11 @@
+.active {
+  color: var(--c-link-active);
+}
+
+.pending {
+  color: red;
+}
+
+.transitioning {
+  color: blue;
+}

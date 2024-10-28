@@ -1,16 +1,16 @@
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url("#frontend/fonts/Ubuntu-Regular.ttf");
+  src: local("Ubuntu"), url("/fonts/Ubuntu-Regular.ttf");
   font-weight: var(--fw-normal);
 }
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url("#frontend/fonts/Ubuntu-Medium.ttf");
+  src: local("Ubuntu"), url("/fonts/Ubuntu-Medium.ttf");
   font-weight: var(--fw-medium);
 }
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url("#frontend/fonts/Ubuntu-Bold.ttf");
+  src: local("Ubuntu"), url("/fonts/Ubuntu-Bold.ttf");
   font-weight: var(--fw-bold);
 }
 
@@ -31,7 +31,7 @@
 
   /* grid */
   --auto-grid-column-w: 15rem;
-  --gap-form: 0.5rem;
+  --gap-form: 1rem;
   --macro-grid-breakout-column-w: calc(
     (var(--macro-grid-breakout-max-w) - var(--macro-grid-content-max-w)) / 2
   );
@@ -54,7 +54,7 @@
 
   --fs-root: clamp(1rem, 0.875rem + 0.625vw, 1.25rem);
   --fs-h1: clamp(2rem, 1rem + 5vw, 4rem);
-  --fs-h2: clamp(1.5rem, 0.75rem + 3.75vw, 3rem);
+  --fs-h2: clamp(1.25rem, 0.625rem + 3.125vw, 2.5rem);
   --fs-h3: clamp(1.25rem, 0.625rem + 3.125vw, 2.5rem);
   --fs-h4: clamp(1rem, 0.5rem + 2.5vw, 2rem);
   --fs-label: clamp(0.875rem, 0.8125rem + 0.3125vw, 1rem);
@@ -72,14 +72,22 @@
   --c-neutral-alabaster: #fafbff;
   --c-neutral-white: #ffffff;
 
+  --c-checkbox-disabled: var(--c-neutral-light-gray);
   --c-confirmation-button: var(--c-neutral-white);
   --c-heading: var(--c-primary-marine-blue);
   --c-step-button: var(--c-neutral-white);
   --c-step-button-border: var(--c-neutral-white);
   --c-root: var(--c-neutral-cool-gray);
   --c-error: var(--c-primary-strawberry-red);
+  --c-input-outline-focus: var(--c-primary-purplish-blue);
+  --c-border-input: var(--c-neutral-cool-gray);
+  --c-checkbox-border: var(--c-neutral-light-gray);
 
+  --bgc-summary: var(--c-neutral-magnolia);
+  --bgc-finish-button: var(--c-primary-purplish-blue);
+  --bgc-checkmark: var(--c-primary-purplish-blue);
   --bgc-confirmation-button: var(--c-primary-marine-blue);
+  --bgc-switch-button: var(--c-neutral-white);
   --bgc-content: var(--c-neutral-white);
   --bgc-root: var(--c-neutral-magnolia);
   --bgc-step-button: var(--c-primary-light-blue);
@@ -105,6 +113,7 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: blue;
 }
 
 body {

@@ -1,19 +1,9 @@
 .container {
   display: grid;
   grid-template-rows: 1fr auto;
-}
 
-.top {
-  display: grid;
-  align-content: start;
-  gap: 2rem;
-  padding: calc(2 * var(--p-inline-container));
-  margin: var(--p-inline-container);
-  border-radius: var(--border-radius);
-  background-color: var(--bgc-content);
-
-  h1 {
-    color: var(--c-heading);
+  > :first-child {
+    align-self: start;
   }
 
   form {
@@ -31,12 +21,32 @@
     > * + * {
       margin-top: 0.5em;
     }
+
+    span:last-child {
+      display: none;
+    }
+
+    &:has(input:where(:required, :invalid)) span:last-child {
+      display: revert;
+    }
   }
 
   input {
     width: 100%;
     padding: 0.5rem;
+    border: var(--c-border-input) solid 2px;
+    border-radius: var(--border-radius);
     font-weight: var(--fw-placeholder);
+    text-overflow: ellipsis;
+
+    &:focus-visible {
+      outline: var(--c-input-outline-focus) solid 2px;
+      outline-offset: -2px;
+    }
+
+    &:placeholder-shown {
+      text-overflow: ellipsis;
+    }
   }
 
   span:first-child {
@@ -51,13 +61,18 @@
 .bottom {
   display: flex;
   justify-content: end;
-  padding: var(--p-inline-container);
+  padding: var(--p-inline-container) calc(2 * var(--p-inline-container));
   background-color: var(--bgc-content);
 
   button {
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     border-radius: var(--border-radius);
     color: var(--c-confirmation-button);
     background-color: var(--bgc-confirmation-button);
+    transition: opacity var(--transition-duration);
+
+    &:hover {
+      opacity: 0.85;
+    }
   }
 }
