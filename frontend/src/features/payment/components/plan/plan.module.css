@@ -63,8 +63,9 @@
 }
 
 .switch {
-  display: flex;
+  display: grid;
   align-items: center;
+  width: 3rem;
   padding: 0.5rem;
   border-radius: 1rem;
   background-color: var(--bgc-confirmation-button);
@@ -74,7 +75,15 @@
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--bgc-switch-button);
+
+    &:hover {
+      opacity: 0.5;
+    }
   }
+}
+
+.yearly {
+  justify-self: end;
 }
 
 .bottom {
@@ -83,4 +92,16 @@
   align-items: center;
   padding: var(--p-inline-container) calc(2 * var(--p-inline-container));
   background-color: var(--bgc-content);
+
+  button {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    color: var(--c-confirmation-button);
+    background-color: var(--bgc-confirmation-button);
+    transition: opacity var(--transition-duration);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }

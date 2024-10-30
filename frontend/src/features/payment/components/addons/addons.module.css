@@ -42,4 +42,16 @@
   align-items: center;
   padding: var(--p-inline-container) calc(2 * var(--p-inline-container));
   background-color: var(--bgc-content);
+
+  button {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    color: var(--c-confirmation-button);
+    background-color: var(--bgc-confirmation-button);
+    transition: opacity var(--transition-duration);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
 }

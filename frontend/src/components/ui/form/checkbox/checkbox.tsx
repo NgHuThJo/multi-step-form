@@ -4,7 +4,11 @@ import styles from "./checkbox.module.css";
 
 type CheckboxProps = ComponentPropsWithRef<"input">;
 
-export function Checkbox({ className = "default", name }: CheckboxProps) {
+export function Checkbox({
+  className = "default",
+  name,
+  ...restProps
+}: CheckboxProps) {
   const customCheckboxRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
@@ -42,6 +46,7 @@ export function Checkbox({ className = "default", name }: CheckboxProps) {
         id={name}
         className={styles["sr-only"]}
         tabIndex={-1}
+        {...restProps}
       />
       <span className={styles[className]} ref={customCheckboxRef}></span>
     </>

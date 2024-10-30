@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormContextApi } from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
-import { FormDataStep } from "#frontend/features/payment/providers/form-context";
 import styles from "./personal-info.module.css";
 
 export function PersonalInfo() {
@@ -17,7 +16,7 @@ export function PersonalInfo() {
 
     let formData = Object.fromEntries(new FormData(formRef.current));
 
-    saveFormData(1, formData as FormDataStep);
+    saveFormData(1, formData);
 
     return navigate("/plan");
   };
