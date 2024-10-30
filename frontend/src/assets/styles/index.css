@@ -82,7 +82,9 @@
   --c-input-outline-focus: var(--c-primary-purplish-blue);
   --c-border-input: var(--c-neutral-cool-gray);
   --c-checkbox-border: var(--c-neutral-light-gray);
+  --c-step-button: var(--c-primary-marine-blue);
 
+  --bgc-step-button: var(--c-neutral-light-gray);
   --bgc-summary: var(--c-neutral-magnolia);
   --bgc-finish-button: var(--c-primary-purplish-blue);
   --bgc-checkmark: var(--c-primary-purplish-blue);

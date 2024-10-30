@@ -16,14 +16,11 @@ export function Addons() {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    console.log("In handlenext");
     if (!formRef.current || !formRef.current.checkValidity()) {
       return;
     }
 
     let formData = Array.from(new FormData(formRef.current));
-
-    console.log(formData);
 
     saveFormData(3, formData);
 

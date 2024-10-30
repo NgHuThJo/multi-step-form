@@ -4,14 +4,18 @@ import styles from "./thank-you.module.css";
 
 export function ThankYou() {
   return (
-    <Card>
-      <img src={icon_thank_you} alt="" />
-      <h1>Thank you!</h1>
-      <p>
-        Thanks for confirming your subscription! We hope you have fun using our
-        platform. If you ever need support, please feel free to email us at
-        support@loremgaming.com.
-      </p>
-    </Card>
+    <div className={styles.container}>
+      <Card>
+        <div className={styles["thank-you"]}>
+          <img src={icon_thank_you} alt="" />
+          <h1>Thank you!</h1>
+          <p>
+            Thanks for confirming your subscription! We hope you have fun using
+            our platform. If you ever need support, please feel free to email us
+            at support@loremgaming.com.
+          </p>
+        </div>
+      </Card>
+    </div>
   );
 }

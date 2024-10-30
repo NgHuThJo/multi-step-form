@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { StepList } from "#frontend/features/shared/step/step";
 import { getBreakpoints } from "#frontend/utils/breakpoints";
 import styles from "./page.module.css";
 import {
@@ -22,12 +23,7 @@ export function PageLayout({ children }: PropsWithChildren) {
             <source />
             <img src={bg_sidebar_mobile} alt="" />
           </picture>
-          <div className={styles.steps}>
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-          </div>
+          <StepList></StepList>
         </aside>
       </div>
       {children}

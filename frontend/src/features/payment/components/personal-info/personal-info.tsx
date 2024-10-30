@@ -1,20 +1,40 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormContextApi } from "#frontend/features/payment/providers/form-context";
+import {
+  FormDataStep,
+  useFormContextApi,
+} from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
+import {
+  personalInfoSchema,
+  PersonalInfoSchemaError,
+} from "#frontend/types/zod";
 import styles from "./personal-info.module.css";
 
 export function PersonalInfo() {
+  const [error, setError] = useState<PersonalInfoSchemaError>({});
   const formRef = useRef<HTMLFormElement | null>(null);
   const { saveFormData } = useFormContextApi();
   const navigate = useNavigate();
 
   const handleNext = () => {
-    if (!formRef.current || !formRef.current.checkValidity()) {
+    if (!formRef.current) {
       return;
     }
 
-    let formData = Object.fromEntries(new FormData(formRef.current));
+    let formData = Object.fromEntries(
+      new FormData(formRef.current),
+    ) as unknown as FormDataStep;
+
+    const parsedData = personalInfoSchema.safeParse(formData);
+
+    if (!parsedData.success) {
+      return setError({
+        errors: {
+          fieldErrors: parsedData.error.flatten().fieldErrors,
+        },
+      });
+    }
 
     saveFormData(1, formData);
 
@@ -30,7 +50,11 @@ export function PersonalInfo() {
           <label htmlFor="name">
             <div>
               <span>Name</span>
-              <span>This field is required</span>
+              {error?.errors?.fieldErrors?.name && (
+                <span className={styles.error}>
+                  {error.errors.fieldErrors.name}
+                </span>
+              )}
             </div>
             <input
               type="text"
@@ -43,7 +67,11 @@ export function PersonalInfo() {
           <label htmlFor="email">
             <div>
               <span>Email Address</span>
-              <span>This field is required</span>
+              {error?.errors?.fieldErrors?.email && (
+                <span className={styles.error}>
+                  {error.errors.fieldErrors.email}
+                </span>
+              )}
             </div>
             <input
               type="email"
@@ -56,7 +84,11 @@ export function PersonalInfo() {
           <label htmlFor="phone">
             <div>
               <span>Phone Number</span>
-              <span>This field is required</span>
+              {error?.errors?.fieldErrors?.phone && (
+                <span className={styles.error}>
+                  {error.errors.fieldErrors.phone}
+                </span>
+              )}
             </div>
             <input
               type="tel"

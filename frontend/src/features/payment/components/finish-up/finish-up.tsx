@@ -1,17 +1,38 @@
-import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormContext } from "#frontend/features/payment/providers/form-context";
+import {
+  useFormContext,
+  planCostMap,
+  useFormContextApi,
+} from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
 import { RouterLink } from "#frontend/components/ui/navigation/link/router-link";
 import { capitalizeFirstLetter } from "#frontend/utils/string";
 import styles from "./finish-up.module.css";
 
 export function FinishUp() {
-  const formRef = useRef<HTMLFormElement | null>(null);
   const { formData } = useFormContext();
-  const navigate = useNavigate();
+  const { saveFormData } = useFormContextApi();
 
   const { "2": two, "3": three } = formData;
+  let totalCost = 0;
+
+  if (two?.plan) {
+    totalCost = planCostMap[two.plan];
+
+    if (three) {
+      for (const [_key, value] of three) {
+        totalCost += Number(value);
+      }
+    }
+  }
+
+  const handleChange = () => {
+    if (formData[2]) {
+      saveFormData(2, {
+        plan: formData[2]?.plan,
+        pay: formData[2]?.pay === "month" ? "year" : "month",
+      });
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -24,9 +45,11 @@ export function FinishUp() {
               <span>
                 Arcade ({two?.pay === "month" ? "Monthly" : "Yearly"})
               </span>
-              <button>Change</button>
+              <button type="button" onClick={handleChange}>
+                Change
+              </button>
             </div>
-            <span>+$9/mo</span>
+            <span>{`$${two?.pay === "month" ? `${planCostMap[two.plan]}/mo` : `${planCostMap[two.plan] * 10}/yr`}`}</span>
           </div>
           <div className={styles.divider}></div>
           {three?.map(([key, value]) => (
@@ -38,6 +61,10 @@ export function FinishUp() {
               </span>
             </div>
           ))}
+        </div>
+        <div className={styles.total}>
+          <span>Total (per year)</span>
+          <span>{`$${two?.pay === "month" ? `${totalCost}/mo` : `${totalCost * 10}/yr`}`}</span>
         </div>
       </Card>
       <div className={styles.bottom}>

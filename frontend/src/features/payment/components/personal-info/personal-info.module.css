@@ -31,6 +31,10 @@
     }
   }
 
+  .error {
+    color: var(--c-error);
+  }
+
   input {
     width: 100%;
     padding: 0.5rem;
@@ -51,10 +55,6 @@
 
   span:first-child {
     color: var(--c-heading);
-  }
-
-  span:last-child {
-    color: var(--c-error);
   }
 }
 

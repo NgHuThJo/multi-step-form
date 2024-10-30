@@ -20,11 +20,18 @@ export const emailSchema = z
 export const nameSchema = z
   .string()
   .trim()
-  .min(4, "Name must have at least 4 characters");
+  .min(1, "Name must have at least 1 character");
 export const passwordSchema = z
   .string()
   .trim()
   .min(8, "Password must have at least 8 characters");
+export const phoneNumberSchema = z
+  .string()
+  .trim()
+  .regex(
+    /^\+\d{10}$/,
+    "Phone number must have 10 digits preceded by a plus sign",
+  );
 export const fileSchema = z.object({
   name: z.string().min(1, "File name is required"),
   size: z.number().max(10 * 1024 * 1024, "File size must be less than 10MB"),
@@ -141,3 +148,10 @@ export const cursorFeedSchema = userIdSchema.merge(cursorSchema).merge(
 export type CursorFeedSchemaErrors = SchemaError<typeof cursorFeedSchema>;
 
 export const indexSchema = userIdSchema.merge(infiniteScrollSchema);
+
+export const personalInfoSchema = z.object({
+  name: nameSchema,
+  email: emailSchema,
+  phone: phoneNumberSchema,
+});
+export type PersonalInfoSchemaError = SchemaError<typeof personalInfoSchema>;

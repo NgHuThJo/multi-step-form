@@ -1,9 +1,13 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFormContextApi } from "#frontend/features/payment/providers/form-context";
+import {
+  useFormContextApi,
+  PayMode,
+  PlanType,
+} from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
 import { RouterLink } from "#frontend/components/ui/navigation/link/router-link";
-import { PayMode } from "#frontend/features/payment/providers/form-context";
+import {} from "#frontend/features/payment/providers/form-context";
 import styles from "./plan.module.css";
 import {
   icon_arcade,
@@ -18,13 +22,15 @@ export function Plan() {
   const navigate = useNavigate();
 
   const handleNext = () => {
-    console.log(formRef.current?.checkValidity());
-
     if (!formRef.current || !formRef.current.checkValidity()) {
       return;
     }
 
-    let formData = Object.fromEntries(new FormData(formRef.current));
+    let formData = Object.fromEntries(
+      new FormData(formRef.current),
+    ) as unknown as {
+      plan: PlanType;
+    };
 
     saveFormData(2, {
       ...formData,

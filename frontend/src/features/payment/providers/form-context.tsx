@@ -2,11 +2,12 @@ import { createContext, PropsWithChildren, useMemo, useState } from "react";
 import { useContextWrapper } from "#frontend/utils/context";
 
 type AddonType = "online-service" | "larger-storage" | "customizable-profile";
-type PlanType = "arcade" | "advanced" | "pro";
 
-export type FormDataStep = PersonalInfo | Plan;
+export type PlanType = "arcade" | "advanced" | "pro";
+export type FormDataStep = PersonalInfo | Plan | Addons;
 export type PayMode = "month" | "year";
-export type Addons = [[string, string]];
+export type Addons = [[AddonType, string]];
+export type Step = 1 | 2 | 3 | 4;
 
 type PersonalInfo = {
   email: string;
@@ -27,9 +28,17 @@ type FormDataType = {
 
 type FormContextType = {
   formData: FormDataType;
+  currentStep: Step;
 };
 type FormContextApiType = {
-  saveFormData: (step: number, data: FormDataStep) => void;
+  saveFormData: (step: Step, data: FormDataStep) => void;
+  switchStep: (step: Step) => void;
+};
+
+export const planCostMap: Record<PlanType, number> = {
+  arcade: 9,
+  advanced: 12,
+  pro: 15,
 };
 
 const FormContext = createContext<FormContextType | null>(null);
@@ -42,18 +51,27 @@ export const useFormContextApi = () =>
 
 export function FormContextProvider({ children }: PropsWithChildren) {
   const [formData, setFormData] = useState<FormDataType>({});
+  const [currentStep, setCurrentStep] = useState<Step>(1);
 
-  console.log(formData);
-
-  const contextValue = { formData };
+  const completedForms = Object.keys(formData);
+  const contextValue = { formData, currentStep };
 
   const api = useMemo(() => {
-    const saveFormData = (step: number, data: FormDataStep) => {
+    const saveFormData = (step: Step, data: FormDataStep) => {
       setFormData((prev) => ({ ...prev, [step]: data }));
+      setCurrentStep(step);
     };
 
-    return { saveFormData };
-  }, []);
+    const switchStep = (step: Step) => {
+      if (completedForms.length < currentStep) {
+        return;
+      }
+
+      setCurrentStep(step);
+    };
+
+    return { saveFormData, switchStep };
+  }, [currentStep, completedForms]);
 
   return (
     <FormContextApi.Provider value={api}>

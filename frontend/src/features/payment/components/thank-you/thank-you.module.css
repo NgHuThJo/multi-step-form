@@ -1,13 +1,8 @@
-.container {
+.thank-you {
   display: grid;
   justify-items: center;
-  align-items: center;
-  place-content: center;
   gap: 2rem;
-  margin: 1rem;
-  padding: calc(2 * var(--p-inline-container));
-  border-radius: var(--border-radius);
-  position: relative;
+  padding-block: 4rem;
   text-align: center;
   background-color: var(--bgc-content);
 
