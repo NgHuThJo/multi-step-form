@@ -15,6 +15,7 @@
     div:first-child {
       display: flex;
       justify-content: space-between;
+      gap: 1rem;
       font-size: var(--fs-label);
     }
 

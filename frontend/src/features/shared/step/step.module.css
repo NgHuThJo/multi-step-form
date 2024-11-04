@@ -1,24 +1,55 @@
 .steps {
   display: flex;
-  gap: 1rem;
+  gap: clamp(1rem, 0.5rem + 2.5vw, 2rem);
   justify-self: center;
   align-self: start;
-  margin-top: 2rem;
+  margin-top: 3rem;
   color: var(--c-step-button);
 
-  & > button {
-    width: 2rem;
-    aspect-ratio: 1;
-    border: 1px solid var(--c-step-button-border);
-    border-radius: 50%;
-    color: var(--c-step-button);
-    background-color: var(--bgc-step-button);
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-    &:disabled {
-      color: revert;
-      background-color: revert;
-      opacity: 0.5;
-      cursor: not-allowed;
+  @media screen and (min-width: 768px) {
+    flex-direction: column;
+    justify-self: start;
+    margin-top: 2rem;
+    margin-left: 2rem;
+  }
+}
+
+.step {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--c-step-button-border);
+  border-radius: 50%;
+  color: var(--c-step-button-active);
+}
+
+.active {
+  background-color: var(--bgc-step-button);
+}
+
+.step-info {
+  display: none;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    > :first-child {
+      font-size: 0.875rem;
+      color: var(--c-root);
+    }
+
+    > :last-child {
+      font-size: 1rem;
+      color: var(--c-step-button);
     }
   }
 }

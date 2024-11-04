@@ -1,16 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import {
   useFormContext,
   planCostMap,
   useFormContextApi,
 } from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
-import { RouterLink } from "#frontend/components/ui/navigation/link/router-link";
 import { capitalizeFirstLetter } from "#frontend/utils/string";
 import styles from "./finish-up.module.css";
 
 export function FinishUp() {
   const { formData } = useFormContext();
-  const { saveFormData } = useFormContextApi();
+  const { saveFormData, goNext, goBack } = useFormContextApi();
+  const navigate = useNavigate();
 
   const { "2": two, "3": three } = formData;
   let totalCost = 0;
@@ -34,6 +35,18 @@ export function FinishUp() {
     }
   };
 
+  const handleNext = () => {
+    goNext();
+
+    return navigate("/thankyou");
+  };
+
+  const handleBack = () => {
+    goBack();
+
+    return navigate("/addons");
+  };
+
   return (
     <div className={styles.container}>
       <Card>
@@ -49,7 +62,11 @@ export function FinishUp() {
                 Change
               </button>
             </div>
-            <span>{`$${two?.pay === "month" ? `${planCostMap[two.plan]}/mo` : `${planCostMap[two.plan] * 10}/yr`}`}</span>
+            <span>
+              {two?.pay
+                ? `$${two?.pay === "month" ? `${planCostMap[two.plan]}/mo` : `${planCostMap[two.plan] * 10}/yr`}`
+                : undefined}
+            </span>
           </div>
           <div className={styles.divider}></div>
           {three?.map(([key, value]) => (
@@ -63,15 +80,17 @@ export function FinishUp() {
           ))}
         </div>
         <div className={styles.total}>
-          <span>Total (per year)</span>
+          <span>Total (per {two?.pay})</span>
           <span>{`$${two?.pay === "month" ? `${totalCost}/mo` : `${totalCost * 10}/yr`}`}</span>
         </div>
       </Card>
       <div className={styles.bottom}>
-        <RouterLink to="/addons">Go Back</RouterLink>
-        <RouterLink to="/thankyou" className="finish-step">
+        <button type="button" onClick={handleBack}>
+          Go Back
+        </button>
+        <button type="button" onClick={handleNext}>
           Confirm
-        </RouterLink>
+        </button>
       </div>
     </div>
   );

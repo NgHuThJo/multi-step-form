@@ -1,7 +1,25 @@
 .main {
-  display: grid;
-  grid-template-rows: auto 1fr;
   background-color: var(--bgc-root);
+
+  > div {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: grid;
+    place-content: center;
+    padding: 1rem;
+
+    > div {
+      grid-template-rows: revert;
+      grid-template-columns: auto 1fr;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      background-color: var(--bgc-content);
+    }
+  }
 }
 
 .sidebar {
@@ -9,8 +27,17 @@
 
   img {
     width: 100%;
-    max-height: 20rem;
+    max-height: 10rem;
     object-fit: cover;
+  }
+
+  @media screen and (min-width: 768px) {
+    height: 100%;
+
+    img {
+      height: 100%;
+      max-height: revert;
+    }
   }
 }
 

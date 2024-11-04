@@ -15,18 +15,18 @@ export function PageLayout({ children }: PropsWithChildren) {
       <div>
         <aside className={styles.sidebar}>
           <picture>
-            <source media={`(max-width: ${m}px)`} srcSet={bg_sidebar_mobile} />
             <source
-              media={`(min-width: ${m + 1}px)`}
-              srcSet={bg_sidebar_desktop}
+              media={`(max-width: ${m - 1}px)`}
+              srcSet={bg_sidebar_mobile}
             />
+            <source media={`(min-width: ${m}px)`} srcSet={bg_sidebar_desktop} />
             <source />
             <img src={bg_sidebar_mobile} alt="" />
           </picture>
-          <StepList></StepList>
+          <StepList />
         </aside>
+        {children}
       </div>
-      {children}
     </main>
   );
 }

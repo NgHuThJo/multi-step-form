@@ -6,10 +6,15 @@
   padding: calc(2 * var(--p-inline-container));
   border-radius: var(--border-radius);
   position: relative;
-  top: -5rem;
+  top: -3rem;
   background-color: var(--bgc-content);
 
   h1 {
     color: var(--c-heading);
+  }
+
+  @media screen and (min-width: 768px) {
+    margin: 0;
+    top: revert;
   }
 }

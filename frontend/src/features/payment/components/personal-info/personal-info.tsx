@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FormDataStep,
+  useFormContext,
   useFormContextApi,
+  PersonalInfo as PersonalInfoType,
 } from "#frontend/features/payment/providers/form-context";
+import { useDebounce } from "#frontend/hooks/use-debounce";
 import { Card } from "#frontend/features/shared/card/card";
 import {
   personalInfoSchema,
@@ -12,9 +14,19 @@ import {
 import styles from "./personal-info.module.css";
 
 export function PersonalInfo() {
+  const { formData } = useFormContext();
+  const { saveFormData, goNext } = useFormContextApi();
+  const [formInput, setFormInput] = useState<PersonalInfoType>(() => {
+    return (
+      formData[1] ?? {
+        name: "",
+        email: "",
+        phone: "",
+      }
+    );
+  });
   const [error, setError] = useState<PersonalInfoSchemaError>({});
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { saveFormData } = useFormContextApi();
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -22,11 +34,9 @@ export function PersonalInfo() {
       return;
     }
 
-    let formData = Object.fromEntries(
-      new FormData(formRef.current),
-    ) as unknown as FormDataStep;
+    console.log(formInput);
 
-    const parsedData = personalInfoSchema.safeParse(formData);
+    const parsedData = personalInfoSchema.safeParse(formInput);
 
     if (!parsedData.success) {
       return setError({
@@ -36,10 +46,19 @@ export function PersonalInfo() {
       });
     }
 
-    saveFormData(1, formData);
+    saveFormData(1, parsedData.data);
+    goNext();
 
     return navigate("/plan");
   };
+
+  const onInputChange = useDebounce((type: string, value: string) => {
+    console.log(value);
+
+    setFormInput((prev) => {
+      return { ...prev, [type]: value };
+    });
+  }, 300);
 
   return (
     <div className={styles.container}>
@@ -61,6 +80,11 @@ export function PersonalInfo() {
               name="name"
               id="name"
               placeholder="e.g. Stephen King"
+              onChange={(event) => {
+                const value = event.currentTarget.value;
+
+                onInputChange("name", value);
+              }}
               required
             />
           </label>
@@ -78,6 +102,11 @@ export function PersonalInfo() {
               name="email"
               id="email"
               placeholder="e.g. stephenking@lorem.com"
+              onChange={(event) => {
+                const value = event.currentTarget.value;
+
+                onInputChange("email", value);
+              }}
               required
             />
           </label>
@@ -95,6 +124,11 @@ export function PersonalInfo() {
               name="phone"
               id="phone"
               placeholder="e.g. +1 234 567 890"
+              onChange={(event) => {
+                const value = event.currentTarget.value;
+
+                onInputChange("phone", value);
+              }}
               required
             />
           </label>

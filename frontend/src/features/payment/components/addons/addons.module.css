@@ -47,7 +47,7 @@
   padding: var(--p-inline-container) calc(2 * var(--p-inline-container));
   background-color: var(--bgc-content);
 
-  button {
+  button:last-child {
     padding: 1rem;
     border-radius: var(--border-radius);
     color: var(--c-confirmation-button);

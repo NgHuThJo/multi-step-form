@@ -1,21 +1,18 @@
-import { MouseEvent } from "react";
-import {
-  useFormContext,
-  useFormContextApi,
-} from "#frontend/features/payment/providers/form-context";
-import { Step } from "#frontend/features/payment/providers/form-context";
+import { useFormContext } from "#frontend/features/payment/providers/form-context";
 import styles from "./step.module.css";
+
+const stepData: {
+  [key: number]: string;
+} = {
+  1: "Your info",
+  2: "See plan",
+  3: "Add-ons",
+  4: "Summary",
+};
 
 export function StepList() {
   const { currentStep } = useFormContext();
-  const { switchStep } = useFormContextApi();
   const maxStep = 4;
-
-  const handleSwitch = (event: MouseEvent<HTMLButtonElement>) => {
-    const nextStep = Number(event.currentTarget.textContent) as Step;
-
-    switchStep(nextStep);
-  };
 
   return (
     <aside className={styles.steps}>
@@ -23,12 +20,20 @@ export function StepList() {
         const transformedIndex = index + 1;
 
         return (
-          <button
-            disabled={transformedIndex > currentStep + 1 ? true : false}
-            onClick={handleSwitch}
-          >
-            {transformedIndex}
-          </button>
+          <div key={index}>
+            <div
+              className={[
+                styles.step,
+                transformedIndex === currentStep ? styles.active : undefined,
+              ].join(" ")}
+            >
+              {transformedIndex}
+            </div>
+            <div className={styles["step-info"]}>
+              <span>STEP {transformedIndex}</span>
+              <span>{stepData[transformedIndex].toLocaleUpperCase()}</span>
+            </div>
+          </div>
         );
       })}
     </aside>

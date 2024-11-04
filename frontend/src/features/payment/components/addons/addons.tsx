@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import {
   useFormContext,
   useFormContextApi,
+  Addons as AddonsAlias,
 } from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
 import { Checkbox } from "#frontend/components/ui/form/checkbox/checkbox";
-import { RouterLink } from "#frontend/components/ui/navigation/link/router-link";
 import styles from "./addons.module.css";
 
 export function Addons() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const { formData } = useFormContext();
-  const { saveFormData } = useFormContextApi();
+  const { saveFormData, goNext, goBack } = useFormContextApi();
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -20,11 +20,20 @@ export function Addons() {
       return;
     }
 
-    let formData = Array.from(new FormData(formRef.current));
+    let formData = Array.from(
+      new FormData(formRef.current),
+    ) as unknown as AddonsAlias;
 
     saveFormData(3, formData);
+    goNext();
 
     return navigate("/finishup");
+  };
+
+  const handleBack = () => {
+    goBack();
+
+    return navigate("/plan");
   };
 
   return (
@@ -60,7 +69,9 @@ export function Addons() {
         </form>
       </Card>
       <div className={styles.bottom}>
-        <RouterLink to="/plan">Go Back</RouterLink>
+        <button type="button" onClick={handleBack}>
+          Go Back
+        </button>
         <button type="button" onClick={handleNext}>
           Next Step
         </button>

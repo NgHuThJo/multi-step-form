@@ -6,8 +6,6 @@ import {
   PlanType,
 } from "#frontend/features/payment/providers/form-context";
 import { Card } from "#frontend/features/shared/card/card";
-import { RouterLink } from "#frontend/components/ui/navigation/link/router-link";
-import {} from "#frontend/features/payment/providers/form-context";
 import styles from "./plan.module.css";
 import {
   icon_arcade,
@@ -18,7 +16,7 @@ import {
 export function Plan() {
   const [switchState, setSwitchState] = useState<PayMode>("month");
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { saveFormData } = useFormContextApi();
+  const { saveFormData, goBack, goNext } = useFormContextApi();
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -36,12 +34,19 @@ export function Plan() {
       ...formData,
       pay: switchState,
     });
+    goNext();
 
     return navigate("/addons");
   };
 
   const handleSwitch = () => {
     setSwitchState((prev) => (prev === "month" ? "year" : "month"));
+  };
+
+  const handleBack = () => {
+    goBack();
+
+    return navigate("/");
   };
 
   return (
@@ -64,7 +69,14 @@ export function Plan() {
             <div>
               <h2>Arcade</h2>
               <div>${`${switchState === "month" ? "9/mo" : "90/yr"}`}</div>
-              {switchState === "year" && <div>2 months free</div>}
+              <div
+                className={[
+                  styles.grid,
+                  switchState === "year" ? styles.open : "",
+                ].join(" ")}
+              >
+                <div className={styles.hidden}>2 months free</div>
+              </div>
             </div>
           </label>
           <label className={styles.option} tabIndex={0}>
@@ -81,7 +93,14 @@ export function Plan() {
             <div>
               <h2>Advanced</h2>
               <div>${`${switchState === "month" ? "12/mo" : "120/yr"}`}</div>
-              {switchState === "year" && <div>2 months free</div>}
+              <div
+                className={[
+                  styles.grid,
+                  switchState === "year" ? styles.open : "",
+                ].join(" ")}
+              >
+                <div className={styles.hidden}>2 months free</div>
+              </div>
             </div>
           </label>
           <label className={styles.option} tabIndex={0}>
@@ -98,7 +117,14 @@ export function Plan() {
             <div>
               <h2>Pro</h2>
               <div>${`${switchState === "month" ? "15/mo" : "150/yr"}`}</div>
-              {switchState === "year" && <div>2 months free</div>}
+              <div
+                className={[
+                  styles.grid,
+                  switchState === "year" ? styles.open : "",
+                ].join(" ")}
+              >
+                <div className={styles.hidden}>2 months free</div>
+              </div>
             </div>
           </label>
         </form>
@@ -115,8 +141,12 @@ export function Plan() {
         </div>
       </Card>
       <div className={styles.bottom}>
-        <RouterLink to="/">Go Back</RouterLink>
-        <button onClick={handleNext}>Next Step</button>
+        <button type="button" onClick={handleBack}>
+          Go Back
+        </button>
+        <button type="button" onClick={handleNext}>
+          Next Step
+        </button>
       </div>
     </div>
   );

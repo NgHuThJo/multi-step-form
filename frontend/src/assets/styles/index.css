@@ -76,13 +76,13 @@
   --c-confirmation-button: var(--c-neutral-white);
   --c-heading: var(--c-primary-marine-blue);
   --c-step-button: var(--c-neutral-white);
+  --c-step-button-active: var(--c-primary-marine-blue);
   --c-step-button-border: var(--c-neutral-white);
   --c-root: var(--c-neutral-cool-gray);
   --c-error: var(--c-primary-strawberry-red);
   --c-input-outline-focus: var(--c-primary-purplish-blue);
   --c-border-input: var(--c-neutral-cool-gray);
   --c-checkbox-border: var(--c-neutral-light-gray);
-  --c-step-button: var(--c-primary-marine-blue);
 
   --bgc-step-button: var(--c-neutral-light-gray);
   --bgc-summary: var(--c-neutral-magnolia);

@@ -8,11 +8,10 @@ export type FormDataStep = PersonalInfo | Plan | Addons;
 export type PayMode = "month" | "year";
 export type Addons = [[AddonType, string]];
 export type Step = 1 | 2 | 3 | 4;
-
-type PersonalInfo = {
+export type PersonalInfo = {
   email: string;
   name: string;
-  phone: number;
+  phone: string;
 };
 
 type Plan = {
@@ -32,7 +31,8 @@ type FormContextType = {
 };
 type FormContextApiType = {
   saveFormData: (step: Step, data: FormDataStep) => void;
-  switchStep: (step: Step) => void;
+  goNext: () => void;
+  goBack: () => void;
 };
 
 export const planCostMap: Record<PlanType, number> = {
@@ -53,25 +53,27 @@ export function FormContextProvider({ children }: PropsWithChildren) {
   const [formData, setFormData] = useState<FormDataType>({});
   const [currentStep, setCurrentStep] = useState<Step>(1);
 
-  const completedForms = Object.keys(formData);
   const contextValue = { formData, currentStep };
 
   const api = useMemo(() => {
     const saveFormData = (step: Step, data: FormDataStep) => {
       setFormData((prev) => ({ ...prev, [step]: data }));
-      setCurrentStep(step);
     };
 
-    const switchStep = (step: Step) => {
-      if (completedForms.length < currentStep) {
-        return;
+    const goNext = () => {
+      if (currentStep < 4) {
+        setCurrentStep((prev) => (prev + 1) as Step);
       }
-
-      setCurrentStep(step);
     };
 
-    return { saveFormData, switchStep };
-  }, [currentStep, completedForms]);
+    const goBack = () => {
+      if (currentStep > 0) {
+        setCurrentStep((prev) => (prev - 1) as Step);
+      }
+    };
+
+    return { goNext, saveFormData, goBack };
+  }, [currentStep]);
 
   return (
     <FormContextApi.Provider value={api}>
