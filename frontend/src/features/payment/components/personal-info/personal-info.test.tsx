@@ -31,20 +31,15 @@ describe("PersonalInfo", () => {
 
     const submitButton = screen.getByRole("button", { name: /Next Step/i });
     await user.click(submitButton);
+
     const nameError = screen.getByText(/Name must have at least 1 character/i);
     const emailError = screen.getByText(/Email address is invalid/i);
     const phoneError = screen.getByText(
       /Phone number must have 10 digits preceded by a plus sign/i,
     );
 
-    await waitFor(() => {
-      expect(nameError).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(emailError).toBeInTheDocument();
-    });
-    await waitFor(() => {
-      expect(phoneError).toBeInTheDocument();
-    });
+    expect(nameError).toBeInTheDocument();
+    expect(emailError).toBeInTheDocument();
+    expect(phoneError).toBeInTheDocument();
   });
 });
