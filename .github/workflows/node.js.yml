@@ -19,7 +19,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          path: ./frontend//dist
+          path: ./frontend/dist
   # Deploy Job
   deploy:
     # Add a dependency to the build job

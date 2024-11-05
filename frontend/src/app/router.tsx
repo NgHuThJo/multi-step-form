@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppRoot } from "./root";
 import { ErrorRoute } from "./routes/error";
 import { Addons } from "#frontend/features/payment/components/addons/addons";
@@ -47,7 +47,7 @@ export const routesConfig = [
 ];
 
 export function Router() {
-  const router = createBrowserRouter(routesConfig);
+  const router = createHashRouter(routesConfig);
 
   return <RouterProvider router={router} />;
 }

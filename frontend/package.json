@@ -4,7 +4,6 @@
   "description": "",
   "type": "module",
   "main": "index.js",
-  "homepage": "https://nghuthjo.github.io/multi-step-form/",
   "scripts": {
     "start": "node dist/index.html",
     "dev": "vite",
