@@ -14,7 +14,7 @@
 
     > div {
       grid-template-rows: revert;
-      grid-template-columns: auto 1fr;
+      grid-template-columns: auto minmax(0, 40rem);
       padding: 1rem;
       border-radius: var(--border-radius);
       background-color: var(--bgc-content);
