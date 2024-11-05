@@ -13,6 +13,7 @@ export default defineConfig({
       "#publicAssets": path.resolve(__dirname, "public"),
     },
   },
+  base: "/multi-step-form/",
   test: {
     globals: true,
     environment: "jsdom",
